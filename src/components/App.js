@@ -28,7 +28,7 @@ class App extends Component {
   render = () => {
     return (
       <main>
-        <Nav />
+        <Nav pageDetails= {this.state.pageDetails}/>
         {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} />}
         {this.state.pageDetails && <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie}/>}
       </main>
