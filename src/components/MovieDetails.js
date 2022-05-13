@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { movieData } from "./movieData"
+import '../styles/MovieDetails.scss';
 
 class MovieDetails extends Component {
     constructor() {
@@ -20,18 +21,26 @@ class MovieDetails extends Component {
 
         return (
             <div className='movie-details-container'>
-                <section className="video-container">
-                    <iframe source={`http://www.youtube.com/embed/${this.state.video.key}`}
-                    width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                </section>
-                <section className="movie-details">
-                    <h2>{this.state.movie.title}</h2>
-                    <div>
-                        <img src={this.state.movie.poster_path}/>
-                        <p>{this.state.movie.overview}</p>
-                    </div>
-                    <p>{`${movieYear} | ${allGenres} | ${runTime} min | ${this.state.movie.average_rating}`}</p>
-                </section>
+                <img className="backdrop" src={this.state.movie.backdrop_path}/>
+                <div className="card-container">
+                    <section className="video-container">
+                        <iframe 
+                            src={`http://www.youtube.com/embed/${this.state.video.key}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title="Embedded youtube"
+                        ></iframe>
+                    </section>
+                    <section className="movie-details">
+                        <h2>{this.state.movie.title}</h2><hr className="line"></hr>
+                        <div>
+                            <img className="poster" src={this.state.movie.poster_path}/>
+                            <p className="overview">{this.state.movie.overview}</p>
+                        </div>
+                        <p className="below-tag">{`${movieYear} `} <span>|</span> {` ${allGenres} `}<span>|</span>  {`${runTime} min `} <span>|</span> {`${this.state.movie.average_rating}`}</p>
+                    </section>
+                </div>
             </div>
         )
     }
