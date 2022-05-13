@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import MovieDetails from "./MovieDetails"
+import { movieData } from "./movieData"
 
 class MovieDetails extends Component {
     constructor() {
@@ -12,9 +12,10 @@ class MovieDetails extends Component {
     //we have access to props.pageDetailsUpdate
     //and props.currentMovie
     displayDetails = () => {
-        const movieYear = this.movie.release_date.substring(0, 5);
-        const allGenres = this.movie.genres.join(' ');
-        const runTime = this.movie.runtime
+        const movieYear = this.state.movie.release_date.substring(0, 4);
+        const allGenres = this.state.movie.genres.join(' ');
+        const runTime = this.state.movie.runtime;
+        console.log("LOOK HERE", movieYear, allGenres, runTime)
 
 
         return (
@@ -37,7 +38,7 @@ class MovieDetails extends Component {
 
     render = () => {
         return (
-            {displayDetails}
+            this.displayDetails()
         )
     }
 } 

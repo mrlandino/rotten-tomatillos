@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   pageDetailsUpdate = (id) => {
-    const status;
+    let status = false;
     if (this.state.pageDetails === false) {
       status = true;
     } else if (this.state.pageDetails === true) {
