@@ -4,13 +4,13 @@
   width: 18vw;
   height: 60vh;
   margin: 2vh 1.5vw;
-  cursor: pointer;
   z-index: 0;
 }
 
 .movie-poster {
   width: 100%;
   box-shadow: 10px 12px 15px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 
 .movie-poster:hover {

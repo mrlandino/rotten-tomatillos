@@ -3,7 +3,7 @@ import Movie from "./Movie"
 import Footer from "./Footer"
 import "../styles/Movies.scss"
 
-const Movies = ({movies}) => {
+const Movies = ({movies, pageDetailsUpdate}) => {
   const movieCards = movies.map(movie => {
     return (
       <Movie
@@ -12,6 +12,7 @@ const Movies = ({movies}) => {
         key={movie.id}
         poster={movie.poster_path}
         backdrop={movie.backdrop_path}
+        pageDetailsUpdate={pageDetailsUpdate}
       />
     )
   })
