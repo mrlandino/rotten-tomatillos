@@ -4,7 +4,7 @@ import "../styles/Nav.scss"
 const Nav = () => {
   return (
     <nav>
-      <h1>Rancid</h1>
+      <h1>Rotten</h1>
       <h2>Tomatillos</h2>
     </nav>
   )

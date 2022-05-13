@@ -1,5 +1,6 @@
 import React from "react"
 import Movie from "./Movie"
+import Footer from "./Footer"
 import "../styles/Movies.scss"
 
 const Movies = ({movies}) => {
@@ -17,6 +18,7 @@ const Movies = ({movies}) => {
   return (
     <div className="movie-container">
       {movieCards}
+      <Footer />
     </div>
   )
 }

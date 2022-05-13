@@ -4,10 +4,17 @@
   width: 18vw;
   height: 60vh;
   margin: 2vh 1.5vw;
+  cursor: pointer;
+  z-index: 0;
 }
 
 .movie-poster {
   width: 100%;
+  box-shadow: 10px 12px 15px rgba(0, 0, 0, 0.25);
+}
+
+.movie-poster:hover {
+  -webkit-filter: brightness(1.2);
 }
 
 .movie-title {
