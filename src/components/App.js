@@ -9,14 +9,21 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      movies: movieData.movies, 
+      movies: [], 
       pageDetails: false,
-      currentMovie: ''
+      currentMovie: '',
+      error: '',
     }
   }
 
+  componentDidMount = () => {
+    return fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
+    .then(response => response.json())
+    .then(data => this.setState({movies: data.movies}))
+    .catch(err => this.setState({error: "Something we wrong, Please try again later."}))
+  }
+
   pageDetailsUpdate = (id) => {
-    console.log("made it here")
     let status = false;
     if (this.state.pageDetails === false) {
       status = true;
@@ -30,8 +37,10 @@ class App extends Component {
     return (
       <main>
         <Nav pageDetails= {this.state.pageDetails} pageDetailsUpdate= {this.pageDetailsUpdate}/>
-        {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} />}
-        {this.state.pageDetails && <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie}/>}
+        {this.state.error && <h3 className='error'>{this.state.error}</h3>}
+        {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} getMovie={this.getMovie}/>}
+        {/* {this.state.error2 && <h3 className='error2'>{this.state.error2}</h3>} */}
+        {this.state.pageDetails && <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie} />}
       </main>
     )
   }

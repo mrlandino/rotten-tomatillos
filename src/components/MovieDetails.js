@@ -1,22 +1,29 @@
 import React, { Component } from "react"
-import { movieData } from "./movieData"
 import '../styles/MovieDetails.scss';
 
 class MovieDetails extends Component {
+    // pageDetailsUpdate, currentMovie
     constructor() {
         super();
         this.state = {
-            movie: movieData.movie,
-            video: movieData.videos[0]
+            movie: '',
+            video: ''
         }
     }
-    //we have access to props.pageDetailsUpdate
-    //and props.currentMovie
+
+    componentDidMount = () => {
+        return fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}`)
+        .then(response => response.json())
+        .then(data => this.setState({movie: data.movie}))
+        .catch(err => this.setState({error2: "Something we wrong, Please try again later."}));
+    }
+
     displayDetails = () => {
+        console.log("MOVIE", this.state.movie)
         const movieYear = this.state.movie.release_date.substring(0, 4);
         const allGenres = this.state.movie.genres.join(' ');
         const runTime = this.state.movie.runtime;
-        console.log("LOOK HERE", movieYear, allGenres, runTime)
+        // console.log("LOOK HERE", movieYear, allGenres, runTime)
 
 
         return (
@@ -44,7 +51,6 @@ class MovieDetails extends Component {
             </div>
         )
     }
-
     render = () => {
         return (
             this.displayDetails()
