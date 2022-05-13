@@ -16,6 +16,7 @@ class App extends Component {
   }
 
   pageDetailsUpdate = (id) => {
+    console.log("made it here")
     let status = false;
     if (this.state.pageDetails === false) {
       status = true;
@@ -28,7 +29,7 @@ class App extends Component {
   render = () => {
     return (
       <main>
-        <Nav pageDetails= {this.state.pageDetails}/>
+        <Nav pageDetails= {this.state.pageDetails} pageDetailsUpdate= {this.pageDetailsUpdate}/>
         {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} />}
         {this.state.pageDetails && <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie}/>}
       </main>
