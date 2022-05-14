@@ -1,16 +1,15 @@
 import React from "react"
 import "../styles/Movie.scss"
 
-const Movie = ({title, key, poster, pageDetailsUpdate}) => {
+const Movie = ({title, id, poster, pageDetailsUpdate}) => {
   
-  const showMovieDetails = (event) => {
-    pageDetailsUpdate(event.target.id);
-
+  const showMovieDetails = () => {
+    pageDetailsUpdate(id);
   }
 
   return (
-    <div className="movie" key={key}>
-      <img className="movie-poster" src={poster} onClick={event => showMovieDetails(event)}/>
+    <div className="movie" key={id}>
+      <img className="movie-poster" id={id} src={poster} onClick={() => showMovieDetails()}/>
       <h1 className="movie-title">{title}</h1>
     </div>
   )

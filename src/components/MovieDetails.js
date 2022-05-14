@@ -1,25 +1,37 @@
-import React, { Component } from "react"
-import { movieData } from "./movieData"
+import React, { Component } from "react";
 import '../styles/MovieDetails.scss';
 
 class MovieDetails extends Component {
     constructor() {
         super();
         this.state = {
-            movie: movieData.movie,
-            video: movieData.videos[0]
+            movie: '',
+            video: ''
         }
+        this.dataToRender= '';
     }
-    //we have access to props.pageDetailsUpdate
-    //and props.currentMovie
+
+    componentDidMount = () => {
+        fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}`)
+        .then(response => response.json())
+        .then(data => this.setState({movie: data.movie}))
+        .then(
+            fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}/videos`)
+            .then(response => response.json())
+            .then(data => this.setState({video: data.videos[0]}))
+        )
+        .then(() => this.displayDetails())
+        .catch(err => this.setState({error2: "Something we wrong, Please try again later."}));
+    }
+    
     displayDetails = () => {
         const movieYear = this.state.movie.release_date.substring(0, 4);
-        const allGenres = this.state.movie.genres.join(' ');
+        let allGenres = [...this.state.movie.genres];
+        allGenres.length > 1 && allGenres.splice(2, 5);
         const runTime = this.state.movie.runtime;
-        console.log("LOOK HERE", movieYear, allGenres, runTime)
-
 
         return (
+            this.dataToRender =
             <div className='movie-details-container'>
                 <img className="backdrop" src={this.state.movie.backdrop_path}/>
                 <div className="card-container">
@@ -38,7 +50,7 @@ class MovieDetails extends Component {
                             <img className="poster" src={this.state.movie.poster_path}/>
                             <p className="overview">{this.state.movie.overview}</p>
                         </div>
-                        <p className="below-tag">{`${movieYear} `} <span>|</span> {` ${allGenres} `}<span>|</span>  {`${runTime} min `} <span>|</span> {`${this.state.movie.average_rating}`}</p>
+                        <p className="below-tag">{`${movieYear} `} <span>|</span> {` ${allGenres.join(' ')} `}<span>|</span>  {`${runTime} min `} <span>|</span> {`${this.state.movie.average_rating.toFixed(1)}`}</p>
                     </section>
                 </div>
             </div>
@@ -47,7 +59,7 @@ class MovieDetails extends Component {
 
     render = () => {
         return (
-            this.displayDetails()
+            this.dataToRender
         )
     }
 } 
