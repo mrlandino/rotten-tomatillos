@@ -4,14 +4,15 @@ import Movies from "./Movies"
 import MovieDetails from "./MovieDetails"
 import { movieData } from "./movieData"
 import '../styles/App.scss';
+import {Route, NavLink } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       movies: [],
-      pageDetails: false,
-      currentMovie: '',
+      // pageDetails: false,
+      // currentMovie: '',
       error: '',
     }
   }
@@ -23,24 +24,30 @@ class App extends Component {
     .catch(err => this.setState({error: "Something went wrong, Please try again later."}))
   }
 
-  pageDetailsUpdate = (id) => {
-    let status = false;
-    if (this.state.pageDetails === false) {
-      status = true;
-    } else if (this.state.pageDetails === true) {
-      status = false;
-    }
-    this.setState({currentMovie: id})
-    this.setState({pageDetails: status})
-  }
+  // pageDetailsUpdate = (id) => {
+  //   // let status = false;
+  //   // if (this.state.pageDetails === false) {
+  //   //   status = true;
+  //   // } else if (this.state.pageDetails === true) {
+  //   //   status = false;
+  //   // }
+    
+  //   this.setState({currentMovie: id})
+  //   // this.setState({pageDetails: status})
+  // }
   render = () => {
     return (
       <main className="main-content">
-        <Nav pageDetails= {this.state.pageDetails} pageDetailsUpdate= {this.pageDetailsUpdate}/>
+        <Route path="/" render= {() => <Nav pageDetails= {this.state.pageDetails}  /> } />
+
         {this.state.error && <h3 className='error'>{this.state.error}</h3>}
-        {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} getMovie={this.getMovie}/>}
+        <Route exact path="/" render={() => <Movies movies={this.state.movies} getMovie={this.getMovie}/>} />
         {/* {this.state.error2 && <h3 className='error2'>{this.state.error2}</h3>} */}
-        {this.state.pageDetails && <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie} />}
+        <Route exact path='/:id' render={({ match }) => {
+          return <MovieDetails currentMovie={match.params.id}/>
+        }}
+        />
+    
       </main>
     )
   }
@@ -48,3 +55,5 @@ class App extends Component {
 }
 
 export default App;
+// <MovieDetails pageDetailsUpdate={this.pageDetailsUpdate} currentMovie={this.state.currentMovie} />}
+// const movieToRender = this.state.movies.find(movie => movie.id === parseInt(match.params.id));  

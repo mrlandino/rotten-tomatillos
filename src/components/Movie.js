@@ -1,17 +1,21 @@
 import React from "react"
 import "../styles/Movie.scss"
+import { NavLink } from 'react-router-dom'
 
-const Movie = ({title, id, poster, pageDetailsUpdate}) => {
+const Movie = ({title, id, poster}) => {
   
-  const showMovieDetails = () => {
-    pageDetailsUpdate(id);
-  }
+  // const showMovieDetails = () => {
+  //   console.log("THIS POSTER BUTTON IS WORKING")
+  //   pageDetailsUpdate(id);
+  // }
 
   return (
-    <div className="movie" key={id}>
-      <img className="movie-poster" id={id} src={poster} onClick={() => showMovieDetails()}/>
-      <h1 className="movie-title">{title}</h1>
-    </div>
+    <NavLink to={`/${id}`}>
+      <div className="movie" key={id}>
+        <img className="movie-poster" id={id} src={poster} />
+        <h1 className="movie-title">{title}</h1>
+      </div>
+    </NavLink>
   )
 }
 
