@@ -23,7 +23,7 @@ class MovieDetails extends Component {
         .then(() => this.displayDetails())
         .catch(err => this.setState({error2: "Something we wrong, Please try again later."}));
     }
-    
+
     displayDetails = () => {
         const movieYear = this.state.movie.release_date.substring(0, 4);
         let allGenres = [...this.state.movie.genres];
@@ -36,7 +36,7 @@ class MovieDetails extends Component {
                 <img className="backdrop" src={this.state.movie.backdrop_path}/>
                 <div className="card-container">
                     <section className="video-container">
-                        <iframe 
+                        <iframe
                             src={`http://www.youtube.com/embed/${this.state.video.key}`}
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -45,7 +45,7 @@ class MovieDetails extends Component {
                         ></iframe>
                     </section>
                     <section className="movie-details">
-                        <h2>{this.state.movie.title}</h2><hr className="line"></hr>
+                        <h2 className="title">{this.state.movie.title}</h2><hr className="line"></hr>
                         <div>
                             <img className="poster" src={this.state.movie.poster_path}/>
                             <p className="overview">{this.state.movie.overview}</p>
@@ -62,6 +62,6 @@ class MovieDetails extends Component {
             this.dataToRender
         )
     }
-} 
-    
+}
+
 export default MovieDetails

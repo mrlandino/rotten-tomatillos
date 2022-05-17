@@ -9,7 +9,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      movies: [], 
+      movies: [],
       pageDetails: false,
       currentMovie: '',
       error: '',
@@ -20,7 +20,7 @@ class App extends Component {
     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
     .then(response => response.json())
     .then(data => this.setState({movies: data.movies}))
-    .catch(err => this.setState({error: "Something we wrong, Please try again later."}))
+    .catch(err => this.setState({error: "Something went wrong, Please try again later."}))
   }
 
   pageDetailsUpdate = (id) => {
@@ -35,7 +35,7 @@ class App extends Component {
   }
   render = () => {
     return (
-      <main>
+      <main className="main-content">
         <Nav pageDetails= {this.state.pageDetails} pageDetailsUpdate= {this.pageDetailsUpdate}/>
         {this.state.error && <h3 className='error'>{this.state.error}</h3>}
         {!this.state.pageDetails && <Movies movies={this.state.movies} pageDetailsUpdate={this.pageDetailsUpdate} getMovie={this.getMovie}/>}
