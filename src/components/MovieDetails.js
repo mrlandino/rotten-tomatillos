@@ -12,28 +12,23 @@ class MovieDetails extends Component {
     }
 
     componentDidMount = () => {
-        // console.log("COMPONENT DID MOUNT")
       fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}`)
         .then(response => response.json())
         .then(data => this.setState({movie: data.movie}))
-        // .then(() => console.log("AFTER 1st FETCH", this.state))
         .then(
            fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}/videos`)
             .then(response => response.json())
             .then(data => this.setState({video: data.videos[0]}))
-            // .then(() => console.log("AFTER 2nd FETCH", this.state))
         )
         .then(() => this.displayDetails())
-        .catch(err => this.setState({error2: "Something we wrong, Please try again later."}));
+        .catch(err => this.setState({error2: "Something went wrong, Please try again later."}));
     }
 
     displayDetails = () => {
-        // console.log("1", this.state)
         const movieYear = this.state.movie.release_date.substring(0, 4);
         let allGenres = [...this.state.movie.genres];
         allGenres.length > 1 && allGenres.splice(2, 5);
         const runTime = this.state.movie.runtime;
-        // console.log("2", this.state)
 
         let dataToRender =
         <div className='movie-details-container'>
@@ -58,11 +53,10 @@ class MovieDetails extends Component {
                 </section>
             </div>
         </div>
-        // console.log("DATA TO RENDER", dataToRender)
         return (
-            this.dataToRender= dataToRender
+            this.dataToRender = dataToRender
         )
-        
+
     }
 
     render = () => {
