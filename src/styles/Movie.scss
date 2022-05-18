@@ -11,10 +11,11 @@
   width: 100%;
   box-shadow: 10px 12px 15px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  -webkit-filter: brightness(0.8);
 }
 
 .movie-poster:hover {
-  -webkit-filter: brightness(1.2);
+  -webkit-filter: brightness(1.0);
 }
 
 .movie-title {
