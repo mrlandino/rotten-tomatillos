@@ -4,7 +4,7 @@ import Movies from "./Movies"
 import MovieDetails from "./MovieDetails"
 import { movieData } from "./movieData"
 import '../styles/App.scss';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -25,6 +25,7 @@ class App extends Component {
   render = () => {
     return (
       <main className="main-content">
+        {this.state.error && <Redirect to="/error" />}
         <Route path="/" render= {() => <Nav /> } />
         <Route exact path="/error" render= {() => <h3 className='error'>{this.state.error}</h3>} />
         <Route exact path="/" render={() => <Movies movies={this.state.movies} getMovie={this.getMovie}/>} />
