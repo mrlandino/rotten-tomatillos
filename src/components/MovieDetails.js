@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import '../styles/MovieDetails.scss';
+import { getMovieDetails, getMovieVideo } from '../apiCalls.js'
 
 class MovieDetails extends Component {
     constructor() {
@@ -11,25 +12,10 @@ class MovieDetails extends Component {
     }
 
     componentDidMount = () => {
-      fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}`)
-        .then(response => {
-            if(response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Something went wrong fiding your movie, Please try again later.");
-                
-            }
-        })
+        getMovieDetails(this.props.currentMovie)
         .then(data => this.setState({movie: data.movie}))
         .then(
-           fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.currentMovie}/videos`)
-            .then(response => {
-                if(response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Something went wrong finding your video, Please try again later.");
-                }
-            })
+            getMovieVideo(this.props.currentMovie)
             .then(data => this.setState({video: data.videos[0]}))
         )
         .catch(err => this.props.updateError(err));
@@ -65,7 +51,6 @@ class MovieDetails extends Component {
                 </div>
             </div>
         )
-
     }
 
     render = () => {
