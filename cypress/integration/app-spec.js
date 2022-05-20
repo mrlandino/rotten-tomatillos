@@ -15,19 +15,14 @@ describe('App', () => {
 
   it('should load main page by fetching all movie posters with movie titles', () => {
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {fixture: 'dataMovies'}).as('dataMovies')
-    cy.wait('@dataMovies').then((interceptions) => {
-      'response.ok'
-    })
     cy.get('.movie').should('have.length', 40)
     cy.get('main').children('div').contains('Mulan')
+    cy.get('main').children('div').contains('Braveheart').should('not.exist')
   })
 
   it('should be able to click on a poster and be taken to that movies details page', () => {
     cy.get('.movie').first().click()
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {fixture: 'movie'}).as('movie')
-    cy.wait('@movie').then((interceptions) => {
-      'response.ok'
-    })
   })
 })
 
@@ -36,9 +31,6 @@ describe('Movie Details', () => {
     cy.visit('http://localhost:3000')
     cy.get('.movie').first().click()
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {fixture: 'movie'}).as('movie')
-    cy.wait('@movie').then((interceptions) => {
-      'response.ok'
-    })
   })
 
   it('should load details page with title and home button', () => {
@@ -59,8 +51,8 @@ describe('Movie Details', () => {
     cy.get('button').click()
     cy.get('nav').find('h1').contains('Rotten')
     cy.get('nav').find('h2').contains('Tomatillos')
-    cy.get('nav').find('h1').contains('Rotten')
-    cy.get('nav').find('h2').contains('Tomatillos')
+    // cy.get('nav').find('h1').contains('Rotten')
+    // cy.get('nav').find('h2').contains('Tomatillos')
     cy.get('.movie').should('have.length', 40)
     cy.get('main').children('div').contains('Mulan')
     cy.get('button').should('not.exist');

@@ -3,7 +3,6 @@ import "../styles/Movie.scss"
 import { NavLink } from 'react-router-dom'
 
 const Movie = ({title, id, poster}) => {
-
   return (
     <NavLink to={`/${id}`} style={{ textDecoration: 'none' }}>
       <div className="movie" key={id}>
