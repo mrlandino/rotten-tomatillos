@@ -64,4 +64,11 @@ describe('Movie Details', () => {
     cy.get('main').children('div').contains('Mulan')
     cy.get('button').should('not.exist');
   })
+
+  it('should go to the error page if a user types in the wrong URL and have ability to go back to homepage', () => {
+    cy.visit('http://localhost:3000/3445')
+    cy.url().should('include', '/error')
+    cy.get('main').find('h3').contains("Something went wrong, Please try again later.")
+    cy.get('.home').click()
+  })
 })
