@@ -54,8 +54,6 @@ describe('Movie Details', () => {
     cy.get('.overview').contains("A professional thief with $40 million in debt and his family's life on the line must commit one final heist - rob a futuristic airborne casino filled with the world's most dangerous criminals.")
     cy.get('.below-tag').contains('2020 | Action | 82 min | 6.9')
     cy.get('iframe').should('have.attr', 'src').should('include', 'http://www.youtube.com/embed/aETz_dRDEys')
-    // cy.get('.ytp-large-play-button').click()
-    // allow user to click on youTube video
   })
 
   it('should have a home button that brings you back to main page', () => {

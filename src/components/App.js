@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import Nav from "./Nav"
 import Movies from "./Movies"
 import MovieDetails from "./MovieDetails"
-import '../styles/App.scss';
-import { Route, Redirect } from 'react-router-dom';
+import '../styles/App.scss'
+import { Route, Redirect } from 'react-router-dom'
 import { getMovies } from '../apiCalls.js'
 
 class App extends Component {
@@ -40,7 +40,6 @@ class App extends Component {
       </main>
     )
   }
-
 }
 
 export default App;

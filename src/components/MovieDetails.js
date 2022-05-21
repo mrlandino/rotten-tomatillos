@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import '../styles/MovieDetails.scss';
+import React, { Component } from "react"
+import '../styles/MovieDetails.scss'
 import { getMovieDetails, getMovieVideo } from '../apiCalls.js'
 
 class MovieDetails extends Component {
@@ -18,7 +18,7 @@ class MovieDetails extends Component {
             getMovieVideo(this.props.currentMovie)
             .then(data => this.setState({video: data.videos[0]}))
         )
-        .catch(err => this.props.updateError(err));
+        .catch(err => this.props.updateError(err))
     }
 
     displayDetails = () => {
@@ -29,7 +29,7 @@ class MovieDetails extends Component {
 
         return (
             <div className='movie-details-container'>
-                <img className="backdrop" src={this.state.movie.backdrop_path}/>
+                <img className="backdrop" src={this.state.movie.backdrop_path} alt={`Movie image for "${this.state.movie.title}"`}/>
                 <div className="card-container">
                     <section className="video-container">
                         <iframe
@@ -43,7 +43,7 @@ class MovieDetails extends Component {
                     <section className="movie-details">
                         <h2 className="title">{this.state.movie.title}</h2><hr className="line"></hr>
                         <div>
-                            <img className="poster" src={this.state.movie.poster_path}/>
+                            <img className="poster" src={this.state.movie.poster_path} alt={`Movie poster for "${this.state.movie.title}"`}/>
                             <p className="overview">{this.state.movie.overview}</p>
                         </div>
                         <p className="below-tag">{`${movieYear} `} <span>|</span> {` ${allGenres.join(' ')} `}<span>|</span>  {`${runTime} min `} <span>|</span> {`${this.state.movie.average_rating.toFixed(1)}`}</p>
