@@ -15,19 +15,22 @@ describe('App', () => {
 
   it('should load main page by fetching all movie posters with movie titles', () => {
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {fixture: 'dataMovies'}).as('dataMovies')
-    cy.wait('@dataMovies').then((interceptions) => {
-      'response.ok'
-    })
     cy.get('.movie').should('have.length', 40)
     cy.get('main').children('div').contains('Mulan')
+    cy.get('main').children('div').contains('Braveheart').should('not.exist')
+  })
+
+  it('should relocate to error screen if api call fails', () => {
+    cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', 'localhost3000/error')
+    cy.url().should('include', '/error')
+    cy.get('main').find('h3').contains("Something went wrong, Please try again later.")
+
   })
 
   it('should be able to click on a poster and be taken to that movies details page', () => {
     cy.get('.movie').first().click()
+    cy.url().should('include', '/694919')
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {fixture: 'movie'}).as('movie')
-    cy.wait('@movie').then((interceptions) => {
-      'response.ok'
-    })
   })
 })
 
@@ -35,10 +38,8 @@ describe('Movie Details', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
     cy.get('.movie').first().click()
+    cy.url().should('include', '/694919')
     cy.intercept('GET', 'https://rancid-tomatillos.herokuapp.com/api/v2/movies/694919', {fixture: 'movie'}).as('movie')
-    cy.wait('@movie').then((interceptions) => {
-      'response.ok'
-    })
   })
 
   it('should load details page with title and home button', () => {
@@ -56,9 +57,7 @@ describe('Movie Details', () => {
   })
 
   it('should have a home button that brings you back to main page', () => {
-    cy.get('button').click()
-    cy.get('nav').find('h1').contains('Rotten')
-    cy.get('nav').find('h2').contains('Tomatillos')
+    cy.get('.home').click()
     cy.get('nav').find('h1').contains('Rotten')
     cy.get('nav').find('h2').contains('Tomatillos')
     cy.get('.movie').should('have.length', 40)
@@ -66,16 +65,10 @@ describe('Movie Details', () => {
     cy.get('button').should('not.exist');
   })
 
-  // it.only("should return an error message if api call fails", () => {
-  //   cy.intercept(
-  // {
-  //   method: 'GET',
-  //   url: 'https://rancid-tomatillos.herokuapp.com/api/v2/movies',
-  //   hostname: 'localhost'
-  // })
-  // cy.intercept("GET", 'https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
-  //   statusCode: 404
-  // })
-  // cy.get('main').find('h3').contains("Something went wrong, Please try again later.")
-  // })
+  it('should go to the error page if a user types in the wrong URL and have ability to go back to homepage', () => {
+    cy.visit('http://localhost:3000/3445')
+    cy.url().should('include', '/error')
+    cy.get('main').find('h3').contains("Something went wrong, Please try again later.")
+    cy.get('.home').click()
+  })
 })

@@ -2,9 +2,9 @@ import React, { Component } from "react"
 import Nav from "./Nav"
 import Movies from "./Movies"
 import MovieDetails from "./MovieDetails"
-import { movieData } from "./movieData"
-import '../styles/App.scss';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import '../styles/App.scss'
+import { Route, Redirect } from 'react-router-dom'
+import { getMovies } from '../apiCalls.js'
 
 class App extends Component {
   constructor() {
@@ -16,10 +16,14 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-    .then(response => response.json())
+    getMovies()
     .then(data => this.setState({movies: data.movies}))
     .catch(err => this.setState({error: true}))
+  }
+
+  updateError = (err) => {
+    console.log(err)
+    this.setState({error: true})
   }
 
   render = () => {
@@ -30,13 +34,12 @@ class App extends Component {
         <Route exact path="/error" render= {() => <h3 className='error'>Something went wrong, Please try again later.</h3>} />
         <Route exact path="/" render={() => <Movies movies={this.state.movies} getMovie={this.getMovie}/>} />
         <Route exact path='/:id' render={({ match }) => {
-          return <MovieDetails currentMovie={match.params.id}/>
+          return <MovieDetails currentMovie={match.params.id} updateError={this.updateError}/>
         }}
         />
       </main>
     )
   }
-
 }
 
 export default App;

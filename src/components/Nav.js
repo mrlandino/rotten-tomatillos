@@ -9,7 +9,7 @@ const Nav = ({id}) => {
         <h1>Rotten</h1>
         <h2>Tomatillos</h2>
       </div>
-      <Route path="/:id" render= {() => <NavLink to="/"><button>HOME</button></NavLink>} />
+      <Route path="/:id" render= {() => <NavLink to="/"><button className='home'>HOME</button></NavLink>} />
     </nav>
   )
 }
