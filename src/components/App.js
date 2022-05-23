@@ -15,9 +15,21 @@ class App extends Component {
     }
   }
 
+  dataCleaner = (data) => {
+    const updatedData = data.movies.map(movie => {
+      return {
+        id: movie.id,
+        poster_path: movie.poster_path,
+        title: movie.title
+      }
+    })
+    
+    return this.setState({movies: updatedData})
+  }
+
   componentDidMount = () => {
     getMovies()
-    .then(data => this.setState({movies: data.movies}))
+    .then(data => this.dataCleaner(data))
     .catch(err => this.setState({error: true}))
   }
 
