@@ -76,7 +76,7 @@ To run end-to-end tests, run the following command
 Clone the project
 
 ```bash
-  git clone git@github.com:zwsaile/rotten-tomatillos.git
+  git@github.com:mrlandino/rotten-tomatillos.git
 ```
 
 Go to the project directory
