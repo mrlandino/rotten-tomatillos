@@ -100,11 +100,9 @@ Start the server
 
 ## Deployment
 
-To deploy this project run
+[To deploy this project run
 
-```bash
-  npm run deploy
-```
+- https://rotten-tomatillos.netlify.app/
 
 ## Additional Resources
 
