@@ -100,8 +100,6 @@ Start the server
 
 ## Deployment
 
-[To deploy this project run
-
 - https://rotten-tomatillos.netlify.app/
 
 ## Additional Resources
