@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import '../styles/MovieDetails.scss'
 import { getMovieDetails, getMovieVideo } from '../apiCalls.js'
+import { dataMovieCleaner, dataVideoCleaner } from '../utilities.js'
 
 class MovieDetails extends Component {
     constructor() {
@@ -13,38 +14,12 @@ class MovieDetails extends Component {
 
     componentDidMount = () => {
         getMovieDetails(this.props.currentMovie)
-        .then(data => this.dataMovieCleaner(data))
+        .then(data => this.setState(dataMovieCleaner(data)))
         .then(
             getMovieVideo(this.props.currentMovie)
-            .then(data => this.dataVideoCleaner(data))
+            .then(data => this.setState(dataVideoCleaner(data)))
         )
         .catch(err => this.props.updateError(err))
-    }
-
-    dataMovieCleaner = (data) => {
-        const updatedData = {
-            id: data.movie.id,
-            title: data.movie.title,
-            poster_path: data.movie.poster_path,
-            backdrop_path: data.movie.backdrop_path,
-            release_date: data.movie.release_date,
-            overview: data.movie.overview,
-            genres: data.movie.genres,
-            runtime: data.movie.runtime,
-            average_rating: data.movie.average_rating
-          }
-
-        return this.setState({movie: updatedData})
-    }
-
-    dataVideoCleaner = (data) => {
-        const updatedData = data.videos.map(video => {
-          return {
-            key: video.key,
-          }
-        })
-
-        return this.setState({video: updatedData[0]})
     }
 
     displayDetails = () => {
