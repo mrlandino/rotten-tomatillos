@@ -5,6 +5,7 @@ import MovieDetails from "./MovieDetails"
 import '../styles/App.scss'
 import { Route, Redirect } from 'react-router-dom'
 import { getMovies } from '../apiCalls.js'
+import { dataCleaner } from '../utilities.js'
 
 class App extends Component {
   constructor() {
@@ -15,21 +16,9 @@ class App extends Component {
     }
   }
 
-  dataCleaner = (data) => {
-    const updatedData = data.movies.map(movie => {
-      return {
-        id: movie.id,
-        poster_path: movie.poster_path,
-        title: movie.title
-      }
-    })
-    
-    return this.setState({movies: updatedData})
-  }
-
   componentDidMount = () => {
     getMovies()
-    .then(data => this.dataCleaner(data))
+    .then(data => this.setState(dataCleaner(data)))
     .catch(err => this.setState({error: true}))
   }
 
