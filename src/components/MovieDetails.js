@@ -34,7 +34,7 @@ class MovieDetails extends Component {
                 <div className="card-container">
                     <section className="video-container">
                         <iframe
-                            src={`http://www.youtube.com/embed/${this.state.video.key}`}
+                            src={`https://www.youtube.com/embed/${this.state.video.key}`}
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
