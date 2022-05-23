@@ -13,12 +13,38 @@ class MovieDetails extends Component {
 
     componentDidMount = () => {
         getMovieDetails(this.props.currentMovie)
-        .then(data => this.setState({movie: data.movie}))
+        .then(data => this.dataMovieCleaner(data))
         .then(
             getMovieVideo(this.props.currentMovie)
-            .then(data => this.setState({video: data.videos[0]}))
+            .then(data => this.dataVideoCleaner(data))
         )
         .catch(err => this.props.updateError(err))
+    }
+
+    dataMovieCleaner = (data) => {
+        const updatedData = {
+            id: data.movie.id,
+            title: data.movie.title,
+            poster_path: data.movie.poster_path,
+            backdrop_path: data.movie.backdrop_path,
+            release_date: data.movie.release_date,
+            overview: data.movie.overview,
+            genres: data.movie.genres,
+            runtime: data.movie.runtime,
+            average_rating: data.movie.average_rating
+          }
+
+        return this.setState({movie: updatedData})
+    }
+
+    dataVideoCleaner = (data) => {
+        const updatedData = data.videos.map(video => {
+          return {
+            key: video.key,
+          }
+        })
+
+        return this.setState({video: updatedData[0]})
     }
 
     displayDetails = () => {
