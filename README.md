@@ -94,7 +94,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run start
+  npm start
 ```
 
 
@@ -108,4 +108,4 @@ To deploy this project run
 
 ## Additional Resources
 
-[Figma Wireframe](https://www.figma.com/file/hMy4gk4yspX1CiUwYwxACy/Rotten-Tomatillos)
+- [Figma Wireframe](https://www.figma.com/file/hMy4gk4yspX1CiUwYwxACy/Rotten-Tomatillos)
